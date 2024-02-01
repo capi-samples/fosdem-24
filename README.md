@@ -19,8 +19,11 @@ kind create cluster --config=kind-config.yaml
 2. (optional) Load VM images into management cluster
 
 ```bash
-docker pull quay.io/capk/ubuntu-2004-container-disk:v1.26.0
-kind load docker-image --name kind quay.io/capk/ubuntu-2004-container-disk:v1.26.0
+# Ensure login to GHCR before running this part
+while IFS= read -r line; do
+    docker pull "$line"
+    kind load docker-image "$line"
+done < "images.txt"
 ```
 
 3. Install calico
@@ -71,7 +74,7 @@ kubectl wait -n kubevirt kv kubevirt --for=condition=Available --timeout=10m
 7. Install CAPI & providers
 
 ```bash
-clusterctl init --infrastructure kubevirt
+clusterctl init  --core cluster-api:v1.6.1 --bootstrap kubeadm:v1.6.1 --control-plane kubeadm:v1.6.1 --infrastructure kubevirt:v0.1.8
 ```
 
 ## Install GitOps Agent
@@ -87,8 +90,8 @@ helm repo add fleet https://rancher.github.io/fleet-helm-charts/
 2. Install the Fleet charts
 
 ```bash
-helm -n cattle-fleet-system install --create-namespace --wait fleet-crd fleet/fleet-crd
-helm -n cattle-fleet-system install --create-namespace --wait fleet fleet/fleet
+helm -n cattle-fleet-system install --create-namespace --wait fleet-crd fleet/fleet-crd --version 0.9.0
+helm -n cattle-fleet-system install --create-namespace --wait fleet fleet/fleet --version 0.9.0
 ```
 
 ## Create the cluster
