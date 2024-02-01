@@ -96,7 +96,7 @@ helm -n cattle-fleet-system install --create-namespace --wait fleet fleet/fleet
 1. Apply the git repo
 
 ```bash
-kubectl apply -f repo.yaml
+kubectl apply -f gitrepo.yaml
 ```
 
 2. Watch the **Machines** and **Clusters** in the management repo
@@ -106,3 +106,21 @@ kubectl apply -f repo.yaml
 kubectl get vm
 kubectl get vmi
 ```
+
+## (optional) Show the boot logs
+
+1. Install virtctl from [releases](https://github.com/kubevirt/kubevirt/releases).
+2. Get the name of the VM (i.e. `kubectl get vm`)
+3. Run the following:
+
+```bash
+virtctl vnc <vm_name>
+```
+
+## (optional) Scale the cluster
+
+1. Watch the VMs or Machines
+2. Edit the machine deployment in GitHub:
+3. Change replicas to **2** and save
+4. Watch the new VM be provisioned
+

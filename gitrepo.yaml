@@ -10,4 +10,4 @@ spec:
   branch: kubevirt
   insecureSkipTLSVerify: true
   paths:
-  - clusters/*
+  - clusters
