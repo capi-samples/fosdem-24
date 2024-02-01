@@ -9,6 +9,15 @@ NOTE: There are 2 providers for Proxmox. This demo uses <https://github.com/iono
   - Template VM Available
 - Kind
 - Helm v3
+- Added IPAM controller config to clusterctl
+  - created `~/.config/cluster-api/clusterctl.yaml`
+  - add the following content
+  ```yaml
+  providers:
+  - name: incluster
+    url: https://github.com/kubernetes-sigs/cluster-api-ipam-provider-in-cluster/releases/latest/ipam-components.yaml
+    type: IPAMProvider
+  ```
 
 ## Setup CAPI Management Cluster
 
@@ -17,8 +26,7 @@ NOTE: There are 2 providers for Proxmox. This demo uses <https://github.com/iono
 2. Create management cluster using kind
 
 ```bash
-kind create cluster
-
+kind create cluster --config=kind-config.yaml
 ```
 
 2. (optional) Load VM images into management cluster
@@ -34,7 +42,7 @@ done < "images.txt"
 3. Install CAPI & providers
 
 ```bash
-clusterctl init --core cluster-api:v1.6.1 --bootstrap kubeadm:v1.6.1 --control-plane kubeadm:v1.6.1 --infrastructure proxmox:v0.2.0
+clusterctl init --core cluster-api:v1.6.1 --bootstrap kubeadm:v1.6.1 --control-plane kubeadm:v1.6.1 --infrastructure proxmox:v0.2.0 --ipam incluster
 ```
 
 ## Install GitOps Agent
@@ -52,10 +60,11 @@ helm repo add fleet https://rancher.github.io/fleet-helm-charts/
 ```bash
 helm -n cattle-fleet-system install --create-namespace --wait fleet-crd fleet/fleet-crd --version 0.9.0
 helm -n cattle-fleet-system install --create-namespace --wait fleet fleet/fleet --version 0.9.0
-kubectl wait pods -n cattle-fleet-system -l app=fleet-controller --for=condition=Ready --timeout=2m
 ```
 
 ## Create the cluster
+
+> You may need to update **templateID** with yout template id.
 
 1. Apply the git repo
 
