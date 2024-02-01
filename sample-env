@@ -1,0 +1,29 @@
+export PROXMOX_URL="https://<add your address>:8006"
+
+export PROXMOX_TOKEN='root@pam!capi'
+export PROXMOX_SECRET='<add your token>'
+
+export PROXMOX_SOURCENODE="pve"
+export TEMPLATE_VMID=100
+export ALLOWED_NODES="[pve]"
+export VM_SSH_KEYS="<add your key>"
+
+export CONTROL_PLANE_ENDPOINT_IP="192.168.1.240"      # The IP that kube-vip is going to use as a control plane endpoint
+export NODE_IP_RANGES="[192.168.1.150-192.168.1.160]" # The IP ranges for Cluster nodes
+export GATEWAY="192.168.1.1"                          # The gateway for the machines network-config.
+export IP_PREFIX="25"                                 # Subnet Mask in CIDR notation for your node IP ranges
+export DNS_SERVERS="[192.168.1.1]"                    # The dns nameservers for the machines network-config.
+export BRIDGE="vmbr0"                                 # The network bridge device for Proxmox VE VMs
+
+# Small node
+export BOOT_VOLUME_DEVICE="scsi0" # The device used for the boot disk.
+export BOOT_VOLUME_SIZE="20"      # The size of the boot disk in GB.
+export NUM_SOCKETS="1"            # The number of sockets for the VMs.
+export NUM_CORES="2"              # The number of cores for the VMs.
+export MEMORY_MIB="2048"          # The memory size for the VMs.
+
+export EXP_CLUSTER_RESOURCE_SET="true"
+
+export PROXMOX_ISO_POOL="local"
+export PROXMOX_BRIDGE="vmbr0"
+export PROXMOX_STORAGE_POOL="local-lvm"

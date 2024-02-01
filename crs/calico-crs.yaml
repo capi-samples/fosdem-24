@@ -1,0 +1,12 @@
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: calico-crs
+  namespace: default
+spec:
+  clusterSelector:
+    matchLabels:
+      cni: calico 
+  resources:
+  - kind: ConfigMap
+    name: calico-crs-configmap

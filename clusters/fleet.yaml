@@ -1,0 +1,5 @@
+namespace: default
+dependsOn:
+  - selector:
+      matchLabels:
+        crs: "true"
