@@ -109,11 +109,6 @@ spec:
       nodeRegistration:
         kubeletExtraArgs:
           provider-id: proxmox://'{{ ds.meta_data.instance_id }}'
-    users:
-    - name: root
-      sshAuthorizedKeys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ1nP/ZXtQN1jzah/v2Nt/cY4unQL6jTaO27RwGRRduH
-        richard.case@outlook.com
   machineTemplate:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
@@ -153,7 +148,7 @@ metadata:
   namespace: default
 spec:
   clusterName: test1
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels: null
   template:
@@ -209,8 +204,3 @@ spec:
         nodeRegistration:
           kubeletExtraArgs:
             provider-id: proxmox://'{{ ds.meta_data.instance_id }}'
-      users:
-      - name: root
-        sshAuthorizedKeys:
-        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ1nP/ZXtQN1jzah/v2Nt/cY4unQL6jTaO27RwGRRduH
-          richard.case@outlook.com
