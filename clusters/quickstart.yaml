@@ -146,7 +146,7 @@ metadata:
   namespace: default
 spec:
   clusterName: capi-quickstart
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels: null
   template:
