@@ -3,7 +3,7 @@
 # Include the magic
 . demo-magic.sh
 
-TYPE_SPEED=30
+TYPE_SPEED=40
 DEMO_PROMPT="${GREEN}➜ ${CYAN}\W ${COLOR_RESET}"
 
 # Clear the screen before starting
